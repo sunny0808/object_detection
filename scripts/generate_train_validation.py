@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 #########################################################################
-# Author: mao
-# Created Time: 04,28,Apr,2018
+# Author:smallbean 
+# Created Time: 10/02/2010
 # File Name: generate_train_validation.py
 # Description:
-#            generate train_set and validation_set
+#            Generate train_set and validation_set for PASCAL VOC dataset
+#            Put this file in the same directory level with JPEGImages
 #########################################################################
 
 import os
@@ -61,13 +62,13 @@ def generate_train_validation(pics_path, train_path, validation_path, validation
 
 wd = getcwd()
 pics_path = wd + '/JPEGImages'
-train_path = wd + '/2018_train.txt'
-validation_path = wd + '/2018_validation.txt'
+train_path = wd + '/train.txt'
+validation_path = wd + '/validation.txt'
 generate_train_validation(pics_path, train_path, validation_path)
 target_path = wd + '/ImageSets/Main'
-if os.path.exists(target_path+'2018_train.txt'):
-    os.remove(target_path+'/2018_train.txt')
-if os.path.exists(target_path+'2018_validation.txt'):
-    os.remove(target_path+'/2018_validation.txt')
-os.system("mv " + train_path + ' ' + target_path+'/2018_train.txt')
-os.system("mv " + validation_path + ' ' + target_path+'/2018_validation.txt')
+if os.path.exists(target_path+'train.txt'):
+    os.remove(target_path+'/train.txt')
+if os.path.exists(target_path+'validation.txt'):
+    os.remove(target_path+'/validation.txt')
+os.system("mv " + train_path + ' ' + target_path+'/train.txt')
+os.system("mv " + validation_path + ' ' + target_path+'/validation.txt')
