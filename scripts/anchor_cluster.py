@@ -11,6 +11,7 @@ import numpy
 import os
 import numpy as np
 import random
+import matplotlib.pyplot as plt
 from lxml.etree import Element,SubElement,tostring,ElementTree
 
 #Annotation xml file folder
@@ -57,6 +58,7 @@ def IOU(box,centers):
         ious.append(iou)
     return np.array(ious)
 
+
 def kmeans(sample_array,centers):
     sample_num = sample_array.shape[0]
     last_belonging = np.ones(sample_num) * (0)    
@@ -75,6 +77,17 @@ def kmeans(sample_array,centers):
         if(belonging == last_belonging).all():
             print("Finish clustering after %d round,centers are"%iter_num)
             print(centers)
+
+            #Sum of error,instead of SSE for distance(1 - IOU) in this project is less than 1,
+            #if we use SSE,the longer distance will become shorter
+            se = 0
+            for i in range(sample_num):
+                se += distance[i,belonging[i]]
+            print("Everage of error is " + str(se/sample_num))
+            plt.plot(sample_array[:,0],sample_array[:,1],'o',markersize=1)
+            plt.plot(centers[:,0],centers[:,1],'o',color=(0.8,0.,0.))
+            plt.show()
+
             break
 
         last_belonging = belonging        
